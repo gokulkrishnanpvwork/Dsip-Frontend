@@ -1,0 +1,619 @@
+{
+    "info": {
+        "name": "DSIP Backend API",
+        "description": "Complete API collection for DSIP Backend with Google OAuth2 authentication",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "version": "1.0.0"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080",
+            "type": "string"
+        },
+        {
+            "key": "adminApiKey",
+            "value": "87fb5e35fc606ed890601eb6cf8d8db52c108c3068824620addf254f607181c5",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health & Info",
+            "item": [
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/health",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "health"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Root Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                ""
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Get Auth Status",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/auth/status",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "status"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "User Management",
+            "item": [
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/user/me",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "user",
+                                "me"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Active Session Count",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/user/sessions/count",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "user",
+                                "sessions",
+                                "count"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Invalidate All Sessions",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/user/sessions/invalidate-all",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "user",
+                                "sessions",
+                                "invalidate-all"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "DSIP Tracker Management",
+            "item": [
+                {
+                    "name": "Create Tracker",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"stock_symbol\": \"AAPL\",\n  \"conviction_period_years\": 5,\n  \"total_capital_planned\": 100000,\n  \"partition_days\": 30,\n  \"deployment_style\": 1,\n  \"base_conviction_score\": 75,\n  \"initial_invested_amount\": 5000,\n  \"initial_shares_held\": 25,\n  \"is_fractional_shares_allowed\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Trackers (Portfolio)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Tracker Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers/:trackerId",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers",
+                                ":trackerId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "trackerId",
+                                    "value": "1",
+                                    "description": "Tracker ID"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Tracker",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"deployment_style\": 2,\n  \"base_conviction_score\": 80,\n  \"status\": 1,\n  \"total_capital_planned\": 120000,\n  \"conviction_period_years\": 6,\n  \"partition_days\": 45\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers/:trackerId",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers",
+                                ":trackerId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "trackerId",
+                                    "value": "1",
+                                    "description": "Tracker ID"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Execute Trade",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"lock_in_percentage\": 50,\n  \"conviction_override\": 85,\n  \"executed_amount\": 5000,\n  \"execution_price\": 176.25\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers/:trackerId/execute",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers",
+                                ":trackerId",
+                                "execute"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "trackerId",
+                                    "value": "1",
+                                    "description": "Tracker ID"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Tracker Executions",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers/:trackerId/executions?limit=6",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers",
+                                ":trackerId",
+                                "executions"
+                            ],
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "6",
+                                    "description": "Number of recent executions"
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "key": "trackerId",
+                                    "value": "1",
+                                    "description": "Tracker ID"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Partition Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers/:trackerId/partitions/:partitionIndex",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers",
+                                ":trackerId",
+                                "partitions",
+                                ":partitionIndex"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "trackerId",
+                                    "value": "1",
+                                    "description": "Tracker ID"
+                                },
+                                {
+                                    "key": "partitionIndex",
+                                    "value": "1",
+                                    "description": "Partition Index (1-based)"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Tracker",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/dsip-trackers/:trackerId",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "dsip-trackers",
+                                ":trackerId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "trackerId",
+                                    "value": "1",
+                                    "description": "Tracker ID"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Stock Management",
+            "item": [
+                {
+                    "name": "Get Stock Closing Price",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/stocks/close?symbol=AAPL&exchange=US",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stocks",
+                                "close"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL",
+                                    "description": "Stock ticker symbol"
+                                },
+                                {
+                                    "key": "exchange",
+                                    "value": "US",
+                                    "description": "Exchange: US, NSE, or BSE"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Check if Stock is Cached",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/stocks/cached?symbol=AAPL",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stocks",
+                                "cached"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL",
+                                    "description": "Stock ticker symbol"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Remove Stock from Cache",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/stocks/cache?symbol=AAPL",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stocks",
+                                "cache"
+                            ],
+                            "query": [
+                                {
+                                    "key": "symbol",
+                                    "value": "AAPL",
+                                    "description": "Stock ticker symbol"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Admin - Whitelist Management",
+            "item": [
+                {
+                    "name": "Get All Whitelisted Emails",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-Admin-API-Key",
+                                "value": "{{adminApiKey}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/admin/whitelist",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "admin",
+                                "whitelist"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Add Whitelisted Email",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Admin-API-Key",
+                                "value": "{{adminApiKey}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"newuser@example.com\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/admin/whitelist",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "admin",
+                                "whitelist"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Bulk Add Whitelisted Emails",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Admin-API-Key",
+                                "value": "{{adminApiKey}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n  \"user1@example.com\",\n  \"user2@example.com\",\n  \"user3@example.com\"\n]"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/admin/whitelist/bulk",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "admin",
+                                "whitelist",
+                                "bulk"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Remove Whitelisted Email",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "X-Admin-API-Key",
+                                "value": "{{adminApiKey}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/admin/whitelist/:email",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "admin",
+                                "whitelist",
+                                ":email"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "email",
+                                    "value": "user@example.com",
+                                    "description": "Email to remove"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Check if Email is Whitelisted",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-Admin-API-Key",
+                                "value": "{{adminApiKey}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/admin/whitelist/check/:email",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "admin",
+                                "whitelist",
+                                "check",
+                                ":email"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "email",
+                                    "value": "user@example.com",
+                                    "description": "Email to check"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
